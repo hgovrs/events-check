@@ -1,0 +1,12 @@
+{
+  "name": "rir-monitor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monitor Rock in Rio 2026 (Ticketmaster BR) - avisa quando o dia 12 de setembro reaparecer",
+  "scripts": {
+    "check": "node check.js"
+  },
+  "dependencies": {
+    "playwright": "1.60.0"
+  }
+}
