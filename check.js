@@ -1,6 +1,8 @@
 // Rock in Rio 2026 (Ticketmaster BR) — checa se o "12 de Setembro" voltou.
 // Roda HEADLESS no GitHub Actions. Notifica via Telegram quando achar (ou se bloquear).
-const { chromium } = require('playwright');
+const { chromium } = require('playwright-extra');
+const stealth = require('puppeteer-extra-plugin-stealth')();
+chromium.use(stealth);
 
 const URL = 'https://www.ticketmaster.com.br/event/rock-in-rio-2026-venda-geral';
 const TARGET = /12\s*de\s*setembro/i;
@@ -23,8 +25,8 @@ async function tg(text) {
 
 (async () => {
   const browser = await chromium.launch({
-    headless: true,
-    args: ['--disable-blink-features=AutomationControlled', '--no-sandbox'],
+    headless: false, // roda "headed" sob xvfb no runner (mais dificil de detectar)
+    args: ['--disable-blink-features=AutomationControlled', '--no-sandbox', '--start-maximized'],
   });
   const ctx = await browser.newContext({
     locale: 'pt-BR',
